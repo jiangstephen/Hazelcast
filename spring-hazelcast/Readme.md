@@ -12,3 +12,5 @@ In order to make hazelcast successfully registered with the hazelcast management
 		</dependency>
 
 I need to downgrade the spring-boot-starter-parent to 1.5.3.RELEASE from the 2.0.4.RELEASE in order to make the hazelcast hibernate to be compatible with the hibernate version 
+
+I had to override the managed hibernate-core version for Spring Boot 1.5.3.RELEASE because Hazelcast didn’t work properly with 5.0.12.Final. Hazelcast needs hibernate-core in the 5.0.9.Finalversion. Otherwise, an exception occurs when starting an application.
