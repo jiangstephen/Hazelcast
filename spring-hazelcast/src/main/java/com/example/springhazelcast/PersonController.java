@@ -63,6 +63,8 @@ public class PersonController {
 			address.setPerson(person);
 		    addressRepository.save(address);
 			LOGGER.info("Save the person {} into the database", person);
+			departmentRepository.findAll();
+			addressRepository.findAll();
 		}
 	}
 	
