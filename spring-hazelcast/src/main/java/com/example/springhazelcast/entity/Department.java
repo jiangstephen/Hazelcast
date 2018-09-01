@@ -1,5 +1,6 @@
 package com.example.springhazelcast.entity;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -11,6 +12,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cacheable
 @Entity
 @Data
 @NoArgsConstructor

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.springhazelcast.entity.Address;
 import com.example.springhazelcast.entity.Department;
 import com.example.springhazelcast.entity.Person;
+import com.example.springhazelcast.entity.PersonInfo;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.IMap;
 
@@ -38,6 +39,9 @@ public class PersonController {
 	private AddressRepository addressRepository;
 	
 	@Autowired
+	private PersonInfoRepository personInfoRepository;
+	
+	@Autowired
     private HazelcastInstance instance;
  
     
@@ -54,17 +58,24 @@ public class PersonController {
 			person.setFirstName(RandomStringUtils.random(5, ALPHABETIC));
 			person.setLastName(RandomStringUtils.random(5, ALPHABETIC));
 			person.setPesel("persel" + (int) (Math.random()*10));
-			person.addDepartment(department);			
-			
+			person.addDepartment(department);
+			PersonInfo personInfo = new PersonInfo();
+			personInfo.setPersonInfoHolder("info holder");
+			person.setPersonInfo(personInfo);
 			person = personRepository.save(person);
-			Address address = new Address();
-			//address.setId((long)i);
-			address.setAddress("Address " + RandomStringUtils.random(10, ALPHABETIC));
-			address.setPerson(person);
-		    addressRepository.save(address);
+			for(int t=0; t<3; t++){
+				Address address = new Address();
+				//address.setId((long)i);
+				address.setAddress("Address " + RandomStringUtils.random(10, ALPHABETIC));
+				address.setPerson(person);
+			    addressRepository.save(address);
+			}
 			LOGGER.info("Save the person {} into the database", person);
 			departmentRepository.findAll();
 			addressRepository.findAll();
+			personInfoRepository.findAll();
+			personRepository.findAll();
+			
 		}
 	}
 	

@@ -9,6 +9,6 @@ import com.example.springhazelcast.entity.Address;
 @Repository
 public interface AddressRepository extends CrudRepository<Address, Long> {
 
-	@Cacheable("findByAddress")
+	//@Cacheable("findByAddress")
 	public Address findByAddress(String name);
 }

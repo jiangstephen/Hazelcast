@@ -11,6 +11,6 @@ import com.example.springhazelcast.entity.Person;
 @Repository
 public interface PersonRepository extends CrudRepository<Person, Integer> {
 
-	@Cacheable("findByPesel")
+	//@Cacheable("findByPesel")
 	public List<Person> findByPesel(String pesel);
 }

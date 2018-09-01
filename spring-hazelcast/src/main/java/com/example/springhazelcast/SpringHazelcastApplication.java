@@ -24,7 +24,7 @@ import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.spring.cache.HazelcastCacheManager;
 
 @SpringBootApplication
-@EnableCaching
+//@EnableCaching
 @EnableJpaRepositories
 public class SpringHazelcastApplication {
 	
