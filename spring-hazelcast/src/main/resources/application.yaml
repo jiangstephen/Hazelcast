@@ -10,3 +10,6 @@ spring:
           use_second_level_cache: true
           region:
             factory_class: com.hazelcast.hibernate.HazelcastCacheRegionFactory
+
+  
+  

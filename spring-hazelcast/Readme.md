@@ -22,3 +22,6 @@ There are couple of important notes, please read carefully
 a.  Unidirectional link query is cached
 b.  Bidirectional link is not cached
 c.  In order to cache Didirectional link,  you need to use JoinColumn(name ='',  referencedColumnName="") in both entities
+4. To enable the hibernate statistics logging 
+a. -Dhibernate.generate_statistics=true
+b. set the logging level of org.hibernate.stats to DEBUG

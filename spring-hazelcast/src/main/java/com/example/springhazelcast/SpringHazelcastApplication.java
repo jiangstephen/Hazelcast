@@ -1,27 +1,19 @@
 package com.example.springhazelcast;
 
-import java.util.Set;
-
 import javax.annotation.PostConstruct;
+import javax.management.MalformedObjectNameException;
+import javax.management.ObjectName;
+import javax.persistence.EntityManagerFactory;
 
-import org.apache.commons.lang3.Validate;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cache.CacheManager;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-
-import com.hazelcast.client.HazelcastClient;
-import com.hazelcast.client.config.ClientConfig;
-import com.hazelcast.config.Config;
-import com.hazelcast.config.ManagementCenterConfig;
-import com.hazelcast.core.Hazelcast;
-import com.hazelcast.core.HazelcastInstance;
-import com.hazelcast.spring.cache.HazelcastCacheManager;
+import org.springframework.jmx.export.MBeanExportException;
+import org.springframework.jmx.export.MBeanExporter;
 
 @SpringBootApplication
 //@EnableCaching
@@ -30,7 +22,28 @@ public class SpringHazelcastApplication {
 	
 	@Autowired
 	public ApplicationContext context;
+	
+	@Autowired
+	public EntityManagerFactory entityManagerFactory;
+	
+	@Autowired
+	public MBeanExporter mbeanExportor;
+	
+	@Autowired
+	private HibernateStatisticsFactoryBean statistisFactoryBean;
+	
+	
+	@Bean
+	public SessionFactory sessionFactory(){
+		return entityManagerFactory.unwrap(SessionFactory.class);
+	}
+	
+	@PostConstruct
+	public void registerBean() throws MBeanExportException, MalformedObjectNameException{
+		mbeanExportor.registerManagedResource(statistisFactoryBean);
+	}
 
+	
 	public static void main(String[] args) {
 		SpringApplication.run(SpringHazelcastApplication.class, args);
 	}
