@@ -1,7 +1,13 @@
 package com.example.springhazelcast;
 
+import java.lang.management.ManagementFactory;
+
 import javax.annotation.PostConstruct;
+import javax.management.InstanceAlreadyExistsException;
+import javax.management.MBeanRegistrationException;
+import javax.management.MBeanServer;
 import javax.management.MalformedObjectNameException;
+import javax.management.NotCompliantMBeanException;
 import javax.management.ObjectName;
 import javax.persistence.EntityManagerFactory;
 
@@ -30,7 +36,7 @@ public class SpringHazelcastApplication {
 	public MBeanExporter mbeanExportor;
 	
 	@Autowired
-	private HibernateStatisticsFactoryBean statistisFactoryBean;
+	private HibernateStatisticsMBean statistisMBean;
 	
 	
 	@Bean
@@ -39,8 +45,8 @@ public class SpringHazelcastApplication {
 	}
 	
 	@PostConstruct
-	public void registerBean() throws MBeanExportException, MalformedObjectNameException{
-		mbeanExportor.registerManagedResource(statistisFactoryBean);
+	public void registerBean() throws MBeanExportException, MalformedObjectNameException, InstanceAlreadyExistsException, MBeanRegistrationException, NotCompliantMBeanException{
+		mbeanExportor.registerManagedResource(statistisMBean);
 	}
 
 	

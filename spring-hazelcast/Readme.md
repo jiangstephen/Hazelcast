@@ -18,10 +18,13 @@ I had to override the managed hibernate-core version for Spring Boot 1.5.3.RELEA
 There are couple of important notes, please read carefully
 1. -Dhazelcast.jmx=true  enables the jmx for out of box hazelcast JMX beans
 2. ManyToMany/OneToMany relationship, hibernate will create the collection cacheregion named [owenr object name].[collection property name]  to store the query cache result
-3. OneToOne/ManyToOne, hibernate will come up with the collection region, instead it will store the foreign key dehydrated id. 
+3. OneToOne/ManyToOne, hibernate will not come up with the collection region, instead it will store the foreign key dehydrated id. 
 a.  Unidirectional link query is cached
 b.  Bidirectional link is not cached
 c.  In order to cache Didirectional link,  you need to use JoinColumn(name ='',  referencedColumnName="") in both entities
 4. To enable the hibernate statistics logging 
 a. -Dhibernate.generate_statistics=true
 b. set the logging level of org.hibernate.stats to DEBUG
+c. Generate the StatisticsMBean and expoose the the managedOperation and ManagedAttribute
+d. Have MBeanExporter export statisticsMBean,  and name the managedResource as Hibernate:application=statistics
+e. Download hibernate-jconsole-1.0.7.jar,  and double click on it, it should start the jconsole with the hibernate management console embedded. 
