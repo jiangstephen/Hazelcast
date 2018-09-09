@@ -20,10 +20,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jmx.export.MBeanExportException;
 import org.springframework.jmx.export.MBeanExporter;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication
 //@EnableCaching
 @EnableJpaRepositories
+@EnableAsync
 public class SpringHazelcastApplication {
 	
 	@Autowired
@@ -48,7 +50,6 @@ public class SpringHazelcastApplication {
 	public void registerBean() throws MBeanExportException, MalformedObjectNameException, InstanceAlreadyExistsException, MBeanRegistrationException, NotCompliantMBeanException{
 		mbeanExportor.registerManagedResource(statistisMBean);
 	}
-
 	
 	public static void main(String[] args) {
 		SpringApplication.run(SpringHazelcastApplication.class, args);
